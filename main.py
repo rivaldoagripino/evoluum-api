@@ -5,6 +5,9 @@ from app.auth.auth_routes import router as auth_router
 from app.todo.todo_routes import router as todo_router
 
 app = FastAPI(
+    servers=[
+        {"url": "http://localhost:8000", "description": "Local server"}
+    ]
 )
 models.Base.metadata.create_all(bind=engine)
 
