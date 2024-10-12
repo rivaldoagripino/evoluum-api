@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from pydantic import BaseModel, Extra, ValidationError
 
+
 class EvoluumBaseModel(BaseModel):
     class Config:
         extra = Extra.forbid

@@ -1,13 +1,11 @@
-
 from fastapi import APIRouter, HTTPException
 
 from app.auth.auth_schemas import AuthResponse
 from settings import Settings
 
 
-router = APIRouter(
-    tags=["Auth"]
-)
+router = APIRouter(tags=["Auth"])
+
 
 @router.get("/token", response_model=AuthResponse)
 async def get_token():

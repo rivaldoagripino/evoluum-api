@@ -17,3 +17,7 @@ migrate:
 
 test:
 	sudo docker-compose exec $(CONTAINER_NAME) pytest
+
+code-convention:
+	flake8
+	pycodestyle
