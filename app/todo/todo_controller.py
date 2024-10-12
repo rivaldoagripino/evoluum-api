@@ -2,35 +2,24 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from app.todo.todo_schemas import TodoCreate
+from app.todo.todo_repository import TodoRepository
 from models import TodoItem
 
 class TodoController:
-    def create_todo(self, todo: TodoCreate, db: Session) -> TodoItem:
-        new_todo = TodoItem(**todo.dict())
-        db.add(new_todo)
-        db.commit()
-        db.refresh(new_todo)
-        return new_todo
+    def __init__(self, db: Session):
+        self.repository = TodoRepository(db)
 
-    def get_all_todos(self, db: Session) -> List[TodoItem]:
-        return db.query(TodoItem).all()
+    def create_todo(self, todo: TodoCreate) -> TodoItem:
+        return self.repository.create(todo)
 
-    def get_todo_by_id(self, todo_id: int, db: Session) -> Optional[TodoItem]:
-        return db.query(TodoItem).filter(TodoItem.id == todo_id).first()
+    def get_all_todos(self) -> List[TodoItem]:
+        return self.repository.get_all()
 
-    def update_todo(self, todo_id: int, updated_todo: TodoCreate, db: Session) -> Optional[TodoItem]:
-        todo = db.query(TodoItem).filter(TodoItem.id == todo_id).first()
-        if todo:
-            for key, value in updated_todo.dict().items():
-                setattr(todo, key, value)
-            db.commit()
-            return todo
-        return None
+    def get_todo_by_id(self, todo_id: int) -> Optional[TodoItem]:
+        return self.repository.get_by_id(todo_id)
 
-    def delete_todo(self, todo_id: int, db: Session) -> bool:
-        todo = db.query(TodoItem).filter(TodoItem.id == todo_id).first()
-        if todo:
-            db.delete(todo)
-            db.commit()
-            return True
-        return False
+    def update_todo(self, todo_id: int, updated_todo: TodoCreate) -> Optional[TodoItem]:
+        return self.repository.update(todo_id, updated_todo)
+
+    def delete_todo(self, todo_id: int) -> bool:
+        return self.repository.delete(todo_id)
