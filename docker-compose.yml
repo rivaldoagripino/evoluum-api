@@ -20,6 +20,8 @@ services:
       DATABASE_URL: postgresql://evoluum:evoluum123@db:5432/evoluum_db
     ports:
       - "8000:8000"
+    volumes:
+      - .:/app
 
 volumes:
   db_data:

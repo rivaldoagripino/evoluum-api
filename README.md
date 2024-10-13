@@ -11,9 +11,13 @@ Este projeto é uma API para gerenciar tarefas (Todo List) utilizando FastAPI e 
 
 ## Como Rodar o Projeto
 
-Se for a primeira vez rodando utilize o comando:
+Se for a primeira vez rodando utilize o comando para linux:
 ```
 make up-build
+```
+e para o windows:
+```
+make up-windows
 ```
 
 Caso já tenha rodado uma vez, poderá seguir rodando:

@@ -6,6 +6,9 @@ up-build:
 up:
 	sudo docker-compose up
 
+up-windows:
+	powershell -ExecutionPolicy Bypass -File ./run.ps1 -action up-build
+
 down:
 	sudo docker-compose down
 
